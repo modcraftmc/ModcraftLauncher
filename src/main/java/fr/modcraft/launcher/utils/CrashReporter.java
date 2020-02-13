@@ -53,6 +53,7 @@ public class CrashReporter {
                     .build();
 
             client.send(embed);
+            client.close();
 
             return id;
         } catch (IOException e) {
