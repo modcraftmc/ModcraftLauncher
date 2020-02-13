@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.modcraft.launcher.ModcraftLauncher">
+   <children>
+      <Rectangle fill="#616161" height="200.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="300.0" />
+      <VBox alignment="CENTER" prefHeight="285.0" prefWidth="536.0" spacing="20.0">
+         <children>
+            <Label text="ModcraftMC est en cours de maintenance !" textFill="WHITE" />
+            <Button mnemonicParsing="false" onAction="#goToSite" text="Site Modcraft" />
+            <Button mnemonicParsing="false" onAction="#goToDiscord" text="Discord Modcraft" />
+            <Button mnemonicParsing="false" onAction="#close" text="Fermer" />
+         </children>
+      </VBox>
+   </children>
+</StackPane>

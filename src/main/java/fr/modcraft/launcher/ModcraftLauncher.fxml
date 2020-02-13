@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="608.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.modcraft.launcher.ModcraftLauncher">
+   <children>
+      <ImageView fitHeight="608.0" fitWidth="1080.0" pickOnBounds="true" preserveRatio="true">
+         <viewport>
+            <Rectangle2D height="608.0" width="1080.0" />
+         </viewport>
+         <image>
+            <Image url="/resources/background2.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="usernameField" layoutX="391.0" layoutY="225.0" prefHeight="40.0" prefWidth="280.0" promptText="Email" onAction="#logButton">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="passwordField" layoutX="391.0" layoutY="284.0" prefHeight="40.0" prefWidth="280.0" promptText="Mot de passe" onAction="#logButton">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </PasswordField>
+      <Label fx:id="baseText" layoutX="103.0" layoutY="100.0" text="Premium Mode: Activé" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ProgressBar fx:id="chargementBar" layoutX="131.0" layoutY="544.0" prefHeight="30.0" prefWidth="800.0" progress="0.0" />
+      <Label fx:id="infoText" alignment="CENTER" contentDisplay="CENTER" layoutX="142.0" layoutY="551.0" prefHeight="17.0" prefWidth="776.0" text="Label" />
+      <ImageView fx:id="closeIMG" fitHeight="50.0" fitWidth="50.0" layoutX="1017.0" layoutY="14.0" onMouseClicked="#close" onMouseEntered="#mouseEnterExit" onMouseExited="#mouseExitExit" onMousePressed="#mouseClicExit" onMouseReleased="#mouseReleaseExit" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/resources/close.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="discordIMG" fitHeight="50.0" fitWidth="50.0" layoutX="36.0" layoutY="534.0" onMouseClicked="#goToDiscord" onMouseEntered="#mouseEnterDiscord" onMouseExited="#mouseExitDiscord" onMousePressed="#mouseClickDiscord" onMouseReleased="#mouseReleaseDiscord" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/resources/discord.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="modcraftIMG" fitHeight="50.0" fitWidth="50.0" layoutX="976.0" layoutY="534.0" onMouseClicked="#goToSite" onMouseEntered="#mouseEnterModcraft" onMouseExited="#mouseExitModcraft" onMousePressed="#mouseClickModcraft" onMouseReleased="#mouseReleaseModcraft" pickOnBounds="true" preserveRatio="true">
+         <viewport>
+            <Rectangle2D height="50.0" width="50.0" />
+         </viewport>
+         <image>
+            <Image url="/resources/modcraft.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="settingsIMG" fitHeight="60.0" fitWidth="60.0" layoutX="16.0" layoutY="14.0" onMouseClicked="#showOptions" onMouseEntered="#mouseEnterOptions" onMouseExited="#mouseExitOptions" onMousePressed="#mouseClickOptions" onMouseReleased="#mouseReleaseOptions" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/resources/settings.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="switchIMG" fitHeight="50.0" fitWidth="66.0" layoutX="16.0" layoutY="90.0" onMouseClicked="#switchMode" onMouseEntered="#mouseEnterSwitch" onMouseExited="#mouseExitSwitch" onMousePressed="#mouseClickSwitch" onMouseReleased="#mouseReleaseSwitch" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/resources/switch.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="playIMG" fitHeight="50.0" fitWidth="160.0" layoutX="447.0" layoutY="347.0" onMouseClicked="#logButton" onMouseEntered="#mouseEnterPlay" onMouseExited="#mouseExitPlay" onMousePressed="#mouseClicPlay" onMouseReleased="#mouseReleasePlay" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/resources/play.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hideIMG" fitHeight="50.0" fitWidth="50.0" layoutX="956.0" layoutY="14.0" onMouseClicked="#Iconified" onMouseEntered="#mouseEnterHide" onMouseExited="#mouseExitHide" onMousePressed="#mouseClicHide" onMouseReleased="#mouseReleaseHide" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/resources/hide.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="windowDrag" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="208.0" layoutX="103.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="839.0" />
+   </children>
+</Pane>
