@@ -105,6 +105,7 @@ public class GameUpdate {
             Platform.runLater(() -> ModcraftLauncher.getWindow().hide());
             p.waitFor();
         } catch (InterruptedException e) {
+            CrashReporter.generate();
             e.printStackTrace();
         }
         System.exit(0);

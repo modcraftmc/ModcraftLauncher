@@ -7,10 +7,31 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
+compileJava.options.encoding = 'UTF-8'
+
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
+
+
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'com.googlecode.json-simple:json-simple:1.1.1'
+    compile files('libs/openlauncherlib-3.0.4.jar')
+    compile files('libs/openauth-1.0.4.jar')
+    compile files('libs/s-update-3.1.0-BETA.jar')
+    compile files('libs/azauth-1.0-SNAPSHOT.jar')
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile group: 'org.json', name: 'json', version: '20090211'
+
 }
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'fr.modcraft.launcher.ModcraftLauncher'
+    }
+
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+}
+

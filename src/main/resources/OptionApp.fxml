@@ -10,7 +10,7 @@
    <children>
       <ImageView fitHeight="130.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/resources/optionBackground.png" />
+            <Image url="optionBackground.png" />
          </image>
       </ImageView>
       <GridPane alignment="BOTTOM_CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="400.0">
@@ -26,7 +26,7 @@
          <children>
             <ImageView fx:id="logIMG" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#openLogs" onMouseEntered="#mouseEnterLogs" onMouseExited="#mouseExitLogs" onMousePressed="#mouseClicLogs" onMouseReleased="#mouseReleaseLogs" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="/resources/logButton.png" />
+                  <Image url="logButton.png" />
                </image>
             </ImageView>
             <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
@@ -48,7 +48,7 @@
                         <Insets />
                      </VBox.margin>
                      <image>
-                        <Image url="/resources/ram.png" />
+                        <Image url="ram.png" />
                      </image>
                   </ImageView>
                   <ComboBox fx:id="ramChoice" onAction="#setMaxRam" prefWidth="120.0" promptText="Ram Selection" />

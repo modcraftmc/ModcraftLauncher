@@ -37,7 +37,7 @@ public class AlertBox implements Initializable {
         alWin.setTitle(title);
         Parent root = null;
         try {
-            root = FXMLLoader.load(AlertBox.class.getResource("AlertWindow.fxml"));
+            root = FXMLLoader.load(ClassLoader.getSystemClassLoader().getResource("AlertWindow.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,7 +64,7 @@ public class AlertBox implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Image image = new Image("/resources/alert.png");
+        Image image = new Image("alert.png");
         alertImage.setImage(image);
         messageLabel.setText(messageS);
     }

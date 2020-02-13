@@ -15,7 +15,7 @@
             <Rectangle2D height="608.0" width="1080.0" />
          </viewport>
          <image>
-            <Image url="/resources/background2.jpg" />
+            <Image url="background2.jpg" />
          </image>
       </ImageView>
       <TextField fx:id="usernameField" layoutX="391.0" layoutY="225.0" prefHeight="40.0" prefWidth="280.0" promptText="Email" onAction="#logButton">
@@ -37,12 +37,12 @@
       <Label fx:id="infoText" alignment="CENTER" contentDisplay="CENTER" layoutX="142.0" layoutY="551.0" prefHeight="17.0" prefWidth="776.0" text="Label" />
       <ImageView fx:id="closeIMG" fitHeight="50.0" fitWidth="50.0" layoutX="1017.0" layoutY="14.0" onMouseClicked="#close" onMouseEntered="#mouseEnterExit" onMouseExited="#mouseExitExit" onMousePressed="#mouseClicExit" onMouseReleased="#mouseReleaseExit" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/resources/close.png" />
+            <Image url="close.png" />
          </image>
       </ImageView>
       <ImageView fx:id="discordIMG" fitHeight="50.0" fitWidth="50.0" layoutX="36.0" layoutY="534.0" onMouseClicked="#goToDiscord" onMouseEntered="#mouseEnterDiscord" onMouseExited="#mouseExitDiscord" onMousePressed="#mouseClickDiscord" onMouseReleased="#mouseReleaseDiscord" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/resources/discord.png" />
+            <Image url="discord.png" />
          </image>
       </ImageView>
       <ImageView fx:id="modcraftIMG" fitHeight="50.0" fitWidth="50.0" layoutX="976.0" layoutY="534.0" onMouseClicked="#goToSite" onMouseEntered="#mouseEnterModcraft" onMouseExited="#mouseExitModcraft" onMousePressed="#mouseClickModcraft" onMouseReleased="#mouseReleaseModcraft" pickOnBounds="true" preserveRatio="true">
@@ -50,27 +50,27 @@
             <Rectangle2D height="50.0" width="50.0" />
          </viewport>
          <image>
-            <Image url="/resources/modcraft.png" />
+            <Image url="modcraft.png" />
          </image>
       </ImageView>
       <ImageView fx:id="settingsIMG" fitHeight="60.0" fitWidth="60.0" layoutX="16.0" layoutY="14.0" onMouseClicked="#showOptions" onMouseEntered="#mouseEnterOptions" onMouseExited="#mouseExitOptions" onMousePressed="#mouseClickOptions" onMouseReleased="#mouseReleaseOptions" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/resources/settings.png" />
+            <Image url="settings.png" />
          </image>
       </ImageView>
       <ImageView fx:id="switchIMG" fitHeight="50.0" fitWidth="66.0" layoutX="16.0" layoutY="90.0" onMouseClicked="#switchMode" onMouseEntered="#mouseEnterSwitch" onMouseExited="#mouseExitSwitch" onMousePressed="#mouseClickSwitch" onMouseReleased="#mouseReleaseSwitch" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/resources/switch.png" />
+            <Image url="switch.png" />
          </image>
       </ImageView>
       <ImageView fx:id="playIMG" fitHeight="50.0" fitWidth="160.0" layoutX="447.0" layoutY="347.0" onMouseClicked="#logButton" onMouseEntered="#mouseEnterPlay" onMouseExited="#mouseExitPlay" onMousePressed="#mouseClicPlay" onMouseReleased="#mouseReleasePlay" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/resources/play.png" />
+            <Image url="play.png" />
          </image>
       </ImageView>
       <ImageView fx:id="hideIMG" fitHeight="50.0" fitWidth="50.0" layoutX="956.0" layoutY="14.0" onMouseClicked="#Iconified" onMouseEntered="#mouseEnterHide" onMouseExited="#mouseExitHide" onMousePressed="#mouseClicHide" onMouseReleased="#mouseReleaseHide" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/resources/hide.png" />
+            <Image url="hide.png" />
          </image>
       </ImageView>
       <Rectangle fx:id="windowDrag" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="208.0" layoutX="103.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="839.0" />

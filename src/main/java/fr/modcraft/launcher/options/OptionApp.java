@@ -41,7 +41,7 @@ public class OptionApp implements Initializable {
         window.initStyle(StageStyle.UNDECORATED);
         Parent root = null;
         try {
-            root = FXMLLoader.load(OptionApp.class.getResource("OptionApp.fxml"));
+            root = FXMLLoader.load(ClassLoader.getSystemClassLoader().getResource("OptionApp.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,21 +116,21 @@ public class OptionApp implements Initializable {
     //Détails bouton logs
     @FXML
     private void mouseEnterLogs(){
-        logIMG.setImage(new javafx.scene.image.Image("/resources/logButtonM.png"));
+        logIMG.setImage(new javafx.scene.image.Image("logButtonM.png"));
     }
 
     @FXML
     private void mouseExitLogs(){
-        logIMG.setImage(new javafx.scene.image.Image("/resources/logButton.png"));
+        logIMG.setImage(new javafx.scene.image.Image("logButton.png"));
     }
 
     @FXML
     private void mouseClicLogs(){
-        logIMG.setImage(new javafx.scene.image.Image("/resources/logButtonC.png"));
+        logIMG.setImage(new javafx.scene.image.Image("logButtonC.png"));
     }
 
     @FXML
     private void mouseReleaseLogs(){
-        logIMG.setImage(new Image("/resources/logButtonM.png"));
+        logIMG.setImage(new Image("logButtonM.png"));
     }
 }

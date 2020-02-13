@@ -6,6 +6,7 @@ import fr.modcraft.launcher.launcherinfos.ReadLauncherInfos;
 import fr.modcraft.launcher.launcherinfos.SaveLauncherInfos;
 import fr.modcraft.launcher.options.OptionApp;
 import fr.modcraft.launcher.utils.BrowserControl;
+import fr.modcraft.launcher.utils.CrashReporter;
 import fr.theshark34.openlauncherlib.minecraft.GameInfos;
 import fr.theshark34.openlauncherlib.minecraft.GameTweak;
 import fr.theshark34.openlauncherlib.minecraft.GameType;
@@ -124,8 +125,13 @@ public class ModcraftLauncher extends Application implements Initializable {
     }
 
     public static void main(String[] args) {
-        logger.info("Starting modcraft launcher");
-        launch(args);
+
+        try {
+            logger.info("Starting modcraft launcher");
+            launch(args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static int getDefaultRamAmount(){
@@ -144,15 +150,15 @@ public class ModcraftLauncher extends Application implements Initializable {
         window.setTitle("ModCraft Launcher");
 
         if (!getMaintenanceStatus()) {
-            root = FXMLLoader.load(getClass().getResource("ModcraftLauncher.fxml"));
+            root = FXMLLoader.load(ClassLoader.getSystemClassLoader().getResource("ModcraftLauncher.fxml"));
             premiumContent = new Scene(root, 1080 - 10, 608 - 10);
         }else {
-            root = FXMLLoader.load(getClass().getResource("Maintenance.fxml"));
+            root = FXMLLoader.load(getClass().getResource("../../../../resources/Maintenance.fxml"));
             premiumContent = new Scene(root, 300, 200);
         }
 
 
-        window.getIcons().add(new Image(ModcraftLauncher.class.getResourceAsStream("/resources/modcraft.png")));
+        window.getIcons().add(new Image(ClassLoader.getSystemClassLoader().getResource("modcraft.png").toExternalForm()));
         window.setScene(premiumContent);
         window.show();
     }
@@ -229,14 +235,12 @@ public class ModcraftLauncher extends Application implements Initializable {
                             passwordField.setDisable(true);
                             GameUpdate.update(infoText, chargementBar);
                         } catch (AuthenticationException e) {
-                            e.printStackTrace();
                             Transitions.blurAnimation(BLUR_AMOUNT, FADING_TIME, root);
                             Platform.runLater(() -> AlertBox.display("Erreur", "Identifiant ou mot de passe incorrect."));
                             Platform.runLater(() -> infoText.setText("Bienvenue sur Modcraft !"));
                             usernameField.setDisable(false);
                             passwordField.setDisable(false);
                         } catch (com.azuriom.azauth.AuthenticationException e) {
-                            e.printStackTrace();
                             Transitions.blurAnimation(BLUR_AMOUNT, FADING_TIME, root);
                             Platform.runLater(() -> AlertBox.display("Erreur", "Identifiant ou mot de passe incorrect: http://modcraftmc.fr"));
                             Platform.runLater(() -> infoText.setText("Bienvenue sur Modcraft !"));
@@ -282,24 +286,24 @@ public class ModcraftLauncher extends Application implements Initializable {
     @FXML
     private void mouseEnterDiscord(){
         if (!isUpdating)
-            discordIMG.setImage(new Image("/resources/discordM.png"));
+            discordIMG.setImage(new Image("discordM.png"));
     }
 
     @FXML
     private void mouseExitDiscord(){
-        discordIMG.setImage(new Image("/resources/discord.png"));
+        discordIMG.setImage(new Image("discord.png"));
     }
 
     @FXML
     private void mouseClickDiscord(){
         if (!isUpdating)
-            discordIMG.setImage(new Image("/resources/discordC.png"));
+            discordIMG.setImage(new Image("discordC.png"));
     }
 
     @FXML
     private void mouseReleaseDiscord(){
         if (!isUpdating)
-            discordIMG.setImage(new Image("/resources/discordM.png"));
+            discordIMG.setImage(new Image("discordM.png"));
     }
 
 
@@ -307,72 +311,72 @@ public class ModcraftLauncher extends Application implements Initializable {
     @FXML
     private void mouseEnterSwitch(){
         if (!isUpdating)
-            switchIMG.setImage(new Image("/resources/switchM.png"));
+            switchIMG.setImage(new Image("switchM.png"));
     }
 
     @FXML
     private void mouseExitSwitch(){
-        switchIMG.setImage(new Image("/resources/switch.png"));
+        switchIMG.setImage(new Image("switch.png"));
     }
 
     @FXML
     private void mouseClickSwitch(){
         if (!isUpdating)
-            switchIMG.setImage(new Image("/resources/switchC.png"));
+            switchIMG.setImage(new Image("switchC.png"));
     }
 
     @FXML
     private void mouseReleaseSwitch(){
         if (!isUpdating)
-            switchIMG.setImage(new Image("/resources/switchM.png"));
+            switchIMG.setImage(new Image("switchM.png"));
     }
 
     //Détails bouton Options
     @FXML
     private void mouseEnterOptions(){
         if (!isUpdating)
-            settingsIMG.setImage(new Image("/resources/settingsM.png"));
+            settingsIMG.setImage(new Image("settingsM.png"));
     }
 
     @FXML
     private void mouseExitOptions(){
-        settingsIMG.setImage(new Image("/resources/settings.png"));
+        settingsIMG.setImage(new Image("settings.png"));
     }
 
     @FXML
     private void mouseClickOptions(){
         if (!isUpdating)
-            settingsIMG.setImage(new Image("/resources/settingsC.png"));
+            settingsIMG.setImage(new Image("settingsC.png"));
     }
 
     @FXML
     private void mouseReleaseOptions(){
         if (!isUpdating)
-            settingsIMG.setImage(new Image("/resources/settingsM.png"));
+            settingsIMG.setImage(new Image("settingsM.png"));
     }
 
     //Détails bouton Modcraft
     @FXML
     private void mouseEnterModcraft(){
         if (!isUpdating)
-            modcraftIMG.setImage(new Image("/resources/modcraftM.png"));
+            modcraftIMG.setImage(new Image("modcraftM.png"));
     }
 
     @FXML
     private void mouseExitModcraft(){
-        modcraftIMG.setImage(new Image("/resources/modcraft.png"));
+        modcraftIMG.setImage(new Image("modcraft.png"));
     }
 
     @FXML
     private void mouseClickModcraft(){
         if (!isUpdating)
-            modcraftIMG.setImage(new Image("/resources/modcraftC.png"));
+            modcraftIMG.setImage(new Image("modcraftC.png"));
     }
 
     @FXML
     private void mouseReleaseModcraft(){
         if (!isUpdating)
-            modcraftIMG.setImage(new Image("/resources/modcraftM.png"));
+            modcraftIMG.setImage(new Image("modcraftM.png"));
     }
 
 
@@ -380,24 +384,24 @@ public class ModcraftLauncher extends Application implements Initializable {
     @FXML
     private void mouseEnterExit(){
         if (!isUpdating)
-            closeIMG.setImage(new Image("/resources/closeM.png"));
+            closeIMG.setImage(new Image("closeM.png"));
     }
 
     @FXML
     private void mouseExitExit(){
-        closeIMG.setImage(new Image("/resources/close.png"));
+        closeIMG.setImage(new Image("close.png"));
     }
 
     @FXML
     private void mouseClicExit(){
         if (!isUpdating)
-            closeIMG.setImage(new Image("/resources/closeC.png"));
+            closeIMG.setImage(new Image("closeC.png"));
     }
 
     @FXML
     private void mouseReleaseExit(){
         if (!isUpdating)
-            closeIMG.setImage(new Image("/resources/closeM.png"));
+            closeIMG.setImage(new Image("closeM.png"));
     }
 
 
@@ -405,24 +409,24 @@ public class ModcraftLauncher extends Application implements Initializable {
     @FXML
     private void mouseEnterHide(){
         if (!isUpdating)
-            hideIMG.setImage(new Image("/resources/hideM.png"));
+            hideIMG.setImage(new Image("hideM.png"));
     }
 
     @FXML
     private void mouseExitHide(){
-        hideIMG.setImage(new Image("/resources/hide.png"));
+        hideIMG.setImage(new Image("hide.png"));
     }
 
     @FXML
     private void mouseClicHide(){
         if (!isUpdating)
-            hideIMG.setImage(new Image("/resources/hideC.png"));
+            hideIMG.setImage(new Image("hideC.png"));
     }
 
     @FXML
     private void mouseReleaseHide(){
         if (!isUpdating)
-            hideIMG.setImage(new Image("/resources/hideM.png"));
+            hideIMG.setImage(new Image("hideM.png"));
     }
 
 
@@ -430,24 +434,24 @@ public class ModcraftLauncher extends Application implements Initializable {
     @FXML
     private void mouseEnterPlay(){
         if (!isUpdating)
-            playIMG.setImage(new Image("/resources/playM.png"));
+            playIMG.setImage(new Image("playM.png"));
     }
 
     @FXML
     private void mouseExitPlay(){
-        playIMG.setImage(new Image("/resources/play.png"));
+        playIMG.setImage(new Image("play.png"));
     }
 
     @FXML
     private void mouseClicPlay(){
         if (!isUpdating)
-            playIMG.setImage(new Image("/resources/playC.png"));
+            playIMG.setImage(new Image("playC.png"));
     }
 
     @FXML
     private void mouseReleasePlay(){
         if (!isUpdating)
-            playIMG.setImage(new Image("/resources/playM.png"));
+            playIMG.setImage(new Image("playM.png"));
     }
 
     private double sx = 0, sy = 0;
