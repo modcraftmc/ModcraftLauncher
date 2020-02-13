@@ -12,6 +12,7 @@ compileJava.options.encoding = 'UTF-8'
 repositories {
     mavenCentral()
     maven { url "https://jitpack.io" }
+    jcenter()
 }
 
 
@@ -24,6 +25,7 @@ dependencies {
     compile files('libs/azauth-1.0-SNAPSHOT.jar')
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'org.json', name: 'json', version: '20090211'
+    compile("club.minnced:discord-webhooks:0.2.0")
 
 }
 

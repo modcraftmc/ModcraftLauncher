@@ -1,11 +1,14 @@
 package fr.modcraft.launcher.utils;
 
+import club.minnced.discord.webhook.WebhookClient;
+import club.minnced.discord.webhook.WebhookClientBuilder;
+import club.minnced.discord.webhook.send.WebhookEmbed;
+import club.minnced.discord.webhook.send.WebhookEmbedBuilder;
 import fr.modcraft.launcher.ModcraftLauncher;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.awt.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -30,19 +33,26 @@ public class CrashReporter {
 
             String time = getTime("GMT+1");
 
-            DiscordWebhook webhook = new DiscordWebhook("https://discordapp.com/api/webhooks/677237941432483840/mZkhVd0P08KosUQ2FefMa6rnyB6YIn_vF78FAduOa5DYtmCtqLFprfJSUp_9KqFUNFiN");
-            webhook.setContent("New crash report generated !");
-            webhook.setAvatarUrl("https://modcraftmc.fr/storage/img/favicon.png");
-            webhook.setUsername("Crash Reporter");
-            webhook.setTts(false);
-            webhook.addEmbed(new DiscordWebhook.EmbedObject()
-                    .setTitle("Crash infos")
-                    .setColor(Color.RED)
-                    .addField("Crash report link", crash_url, true)
-                    .addField("ID", id, true)
-                    .setThumbnail("https://k8h4n2u5.stackpathcdn.com/wp-content/uploads/2019/02/crash-hotel-logo-white.png")
-                    .setFooter(time, "https://kryptongta.com/images/kryptonlogodark.png"));
-            webhook.execute(); //Handle exception
+
+            WebhookClientBuilder builder = new WebhookClientBuilder("https://discordapp.com/api/webhooks/677237941432483840/mZkhVd0P08KosUQ2FefMa6rnyB6YIn_vF78FAduOa5DYtmCtqLFprfJSUp_9KqFUNFiN"); // or id, token
+            builder.setThreadFactory((job) -> {
+                Thread thread = new Thread(job);
+                thread.setName("Hello");
+                thread.setDaemon(true);
+                return thread;
+            });
+            builder.setWait(true);
+            WebhookClient client = builder.build();
+
+            WebhookEmbed embed = new WebhookEmbedBuilder()
+                    .setColor(0xFE3523)
+                    .addField(new WebhookEmbed.EmbedField(true, "Crash report link", crash_url))
+                    .addField(new WebhookEmbed.EmbedField(true, "Crash report id", id))
+                    .setThumbnailUrl("https://k8h4n2u5.stackpathcdn.com/wp-content/uploads/2019/02/crash-hotel-logo-white.png")
+                    .setFooter(new WebhookEmbed.EmbedFooter(time, "https://kryptongta.com/images/kryptonlogodark.png"))
+                    .build();
+
+            client.send(embed);
 
             return id;
         } catch (IOException e) {
