@@ -22,7 +22,7 @@ public class SaveLauncherInfos {
         File parent = new File(launcherFile.getParent());
         if (!parent.exists()){
             if (!parent.mkdirs()) {
-                ModcraftLauncher.getLogger().error("[ERREUR] failed to save infos");
+                ModcraftLauncher.getLogger().error("[ERROR] failed to save infos");
             }
         }
     }

@@ -26,12 +26,11 @@ public class ReadLauncherInfos {
                 obj = new JSONParser().parse(reader);
                 launcherInfos = (JSONObject) obj;
             } catch (FileNotFoundException e) {
-                System.out.println("Le fichier n'existe pas");
+                ModcraftLauncher.getLogger().error("Le fichier n'existe pas");
             } catch (IOException | ParseException e) {
                 e.printStackTrace();
             }
-        } else
-            System.out.println("launcher_info.json doesnt exist");
+        }
     }
     
     public static String getUsername(){

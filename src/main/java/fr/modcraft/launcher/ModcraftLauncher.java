@@ -1,5 +1,6 @@
 package fr.modcraft.launcher;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import fr.litarvan.openauth.AuthenticationException;
 import fr.modcraft.launcher.alert.AlertBox;
 import fr.modcraft.launcher.launcherinfos.ReadLauncherInfos;
@@ -91,6 +92,8 @@ public class ModcraftLauncher extends Application implements Initializable {
     public static final GameInfos FL_INFOS = new GameInfos(serverName, FL_VERSION, new GameTweak[] {GameTweak.FORGE});
     public static final File FL_DIR = GameDirGenerator.createGameDir("modcraft");
 
+    public static boolean maintenance = false;
+
     public static boolean getSavePassword(){
         return savePassword;
     }
@@ -111,15 +114,13 @@ public class ModcraftLauncher extends Application implements Initializable {
     private static boolean getMaintenanceStatus(){
         JSONParser parser = new JSONParser();
         JSONObject Jobject;
-        boolean maintenance = false;
         try(InputStreamReader inputStreamReader = new InputStreamReader(new URL("http://v1.modcraftmc.fr/server.json").openStream())){
+            ModcraftLauncher.getLogger().info("fetching infos from modcraftmc.fr...");
             Object obj = parser.parse(inputStreamReader);
             Jobject = (JSONObject) obj;
-            System.out.println("maintenance: "+Jobject.get("maintenance"));
             maintenance = (boolean)Jobject.get("maintenance");
             return maintenance;
         } catch (ParseException | IOException e) {
-            e.printStackTrace();
             return true;
         }
     }
@@ -153,7 +154,7 @@ public class ModcraftLauncher extends Application implements Initializable {
             root = FXMLLoader.load(ClassLoader.getSystemClassLoader().getResource("ModcraftLauncher.fxml"));
             premiumContent = new Scene(root, 1080 - 10, 608 - 10);
         }else {
-            root = FXMLLoader.load(getClass().getResource("../../../../resources/Maintenance.fxml"));
+            root = FXMLLoader.load(ClassLoader.getSystemClassLoader().getResource("Maintenance.fxml"));
             premiumContent = new Scene(root, 300, 200);
         }
 
@@ -180,7 +181,6 @@ public class ModcraftLauncher extends Application implements Initializable {
                 baseText.setText(defaultText + "Activé");
                 SaveLauncherInfos.saveLauncherInfosSwitch(true);
             }
-            System.out.println("Premium Mode: " + premiumMode);
         }
     }
 
@@ -457,39 +457,38 @@ public class ModcraftLauncher extends Application implements Initializable {
     private double sx = 0, sy = 0;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (!getMaintenanceStatus()) {
-            infoText.setText("Bienvenue sur ModcraftMC !");
-            if (ReadLauncherInfos.getUsername() != null) {
-                usernameField.setText(ReadLauncherInfos.getUsername());
+
+            if (!maintenance) {
+                infoText.setText("Bienvenue sur ModcraftMC !");
+                if (ReadLauncherInfos.getUsername() != null) {
+                    usernameField.setText(ReadLauncherInfos.getUsername());
+                }
+
+                if (ReadLauncherInfos.getPassword() != null) {
+                    passwordField.setText(ReadLauncherInfos.getPassword());
+                }
+
+                windowDrag.addEventFilter(MOUSE_PRESSED, e -> {
+                    sx = e.getScreenX() - window.getX();
+                    sy = e.getScreenY() - window.getY();
+                });
+                windowDrag.addEventFilter(MOUSE_DRAGGED, e -> {
+                    window.setX(e.getScreenX() - sx);
+                    window.setY(e.getScreenY() - sy);
+                });
+
+
+                chargementBar.setStyle("-fx-accent: orange;");
+
+                SaveLauncherInfos.setSavePassword(ReadLauncherInfos.getSavePassword());
+                SaveLauncherInfos.setPremiumMode(ReadLauncherInfos.getPremiumMode());
+
+                premiumMode = ReadLauncherInfos.getPremiumMode();
+                if (premiumMode)
+                    baseText.setText(defaultText + "Activé");
+                else
+                    baseText.setText(defaultText + "Désactivé");
             }
-
-
-
-            if (ReadLauncherInfos.getPassword() != null) {
-                passwordField.setText(ReadLauncherInfos.getPassword());
-            }
-
-            windowDrag.addEventFilter(MOUSE_PRESSED, e -> {
-                sx = e.getScreenX() - window.getX();
-                sy = e.getScreenY() - window.getY();
-            });
-            windowDrag.addEventFilter(MOUSE_DRAGGED, e -> {
-                window.setX(e.getScreenX() - sx);
-                window.setY(e.getScreenY() - sy);
-            });
-
-
-            chargementBar.setStyle("-fx-accent: orange;");
-
-            SaveLauncherInfos.setSavePassword(ReadLauncherInfos.getSavePassword());
-            SaveLauncherInfos.setPremiumMode(ReadLauncherInfos.getPremiumMode());
-
-            premiumMode = ReadLauncherInfos.getPremiumMode();
-            if (premiumMode)
-                baseText.setText(defaultText + "Activé");
-            else
-                baseText.setText(defaultText + "Désactivé");
-        }
     }
 
     public static BasicLogger getLogger() {
