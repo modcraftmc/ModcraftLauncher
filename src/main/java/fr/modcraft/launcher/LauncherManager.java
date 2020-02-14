@@ -24,7 +24,7 @@ import java.util.Arrays;
 
 import static java.lang.Thread.sleep;
 
-public class GameUpdate {
+public class LauncherManager {
 
     private static Authenticator authenticator = new Authenticator(Authenticator.MOJANG_AUTH_URL, AuthPoints.NORMAL_AUTH_POINTS);
     public GameVersion FL_VERSION;
@@ -33,7 +33,7 @@ public class GameUpdate {
     private static AuthInfos authInfos;
 
 
-    public GameUpdate(GameVersion gameVersion, GameInfos gameInfos, File gameDir){
+    public LauncherManager(GameVersion gameVersion, GameInfos gameInfos, File gameDir){
         FL_VERSION = gameVersion;
         FL_INFOS = gameInfos;
         FL_DIR = gameDir;
@@ -71,7 +71,7 @@ public class GameUpdate {
                         public void run() {
                             super.run();
                             try {
-                                GameUpdate.launch();
+                                LauncherManager.launch();
                             } catch (LaunchException e) {
                                 e.printStackTrace();
                                 String id = CrashReporter.generate();
@@ -97,17 +97,22 @@ public class GameUpdate {
     public static void launch() throws LaunchException {
         ExternalLaunchProfile profile = MinecraftLauncher.createExternalProfile(FL_INFOS, GameFolder.BASIC, authInfos);
         profile.getVmArgs().addAll(Arrays.asList(OptionApp.getRamArguments()));
+        profile.getArgs().add("-Dfml.readTimeout=60");
         ExternalLauncher launcher = new ExternalLauncher(profile);
-        Process p = launcher.launch();
-
+        Process p = null;
         try {
+            p = launcher.launch();
             sleep(5000);
             Platform.runLater(() -> ModcraftLauncher.getWindow().hide());
             p.waitFor();
-        } catch (InterruptedException e) {
-            CrashReporter.generate();
+        } catch (InterruptedException | LaunchException e) {
             e.printStackTrace();
+        } finally {
+            if (p.exitValue() == 1 ) {
+                CrashReporter.generate();
+            }
+            System.exit(0);
         }
-        System.exit(0);
+
     }
 }

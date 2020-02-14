@@ -1,13 +1,11 @@
 package fr.modcraft.launcher;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import fr.litarvan.openauth.AuthenticationException;
 import fr.modcraft.launcher.alert.AlertBox;
 import fr.modcraft.launcher.launcherinfos.ReadLauncherInfos;
 import fr.modcraft.launcher.launcherinfos.SaveLauncherInfos;
 import fr.modcraft.launcher.options.OptionApp;
 import fr.modcraft.launcher.utils.BrowserControl;
-import fr.modcraft.launcher.utils.CrashReporter;
 import fr.theshark34.openlauncherlib.minecraft.GameInfos;
 import fr.theshark34.openlauncherlib.minecraft.GameTweak;
 import fr.theshark34.openlauncherlib.minecraft.GameType;
@@ -228,12 +226,12 @@ public class ModcraftLauncher extends Application implements Initializable {
                     public void run() {
                         super.run();
                         try {
-                            GameUpdate.auth(usernameField.getText(), passwordField.getText(), premiumMode);
-                            new GameUpdate(FL_VERSION, FL_INFOS, FL_DIR);
+                            LauncherManager.auth(usernameField.getText(), passwordField.getText(), premiumMode);
+                            new LauncherManager(FL_VERSION, FL_INFOS, FL_DIR);
                             isUpdating = true;
                             usernameField.setDisable(true);
                             passwordField.setDisable(true);
-                            GameUpdate.update(infoText, chargementBar);
+                            LauncherManager.update(infoText, chargementBar);
                         } catch (AuthenticationException e) {
                             Transitions.blurAnimation(BLUR_AMOUNT, FADING_TIME, root);
                             Platform.runLater(() -> AlertBox.display("Erreur", "Identifiant ou mot de passe incorrect."));
