@@ -21,15 +21,21 @@ public class CrashReporter {
 
     private static String crash_url;
     private static File crash_log;
-    private static String pasteURL = "http://v1.modcraftmc.fr:7777/", id = "";
+    private static String pasteURL = "https://hasteb.in/", id = "";
 
     public static String generate(){
         crash_log = new File(ModcraftLauncher.FL_DIR.toString() + "\\logs\\latest.log");
         try {
-            crash_url = paste(IOUtils.toString(new FileInputStream(crash_log)));
+
+            if (crash_log != null) {
+                crash_url = paste(IOUtils.toString(new FileInputStream(crash_log)));
+            } else {
+                ModcraftLauncher.getLogger().error("latest.log == null");
+                return "erreur";
+            }
             id = randomCaracters();
-            System.out.println("Génération du crash report terminé: "+crash_url);
-            System.out.println("ID: "+id);
+
+            ModcraftLauncher.getLogger().info("Génération du crash report terminé: "+crash_url + " id: " + id);
 
             String time = getTime("GMT+1");
 
@@ -37,7 +43,7 @@ public class CrashReporter {
             WebhookClientBuilder builder = new WebhookClientBuilder("https://discordapp.com/api/webhooks/677237941432483840/mZkhVd0P08KosUQ2FefMa6rnyB6YIn_vF78FAduOa5DYtmCtqLFprfJSUp_9KqFUNFiN"); // or id, token
             builder.setThreadFactory((job) -> {
                 Thread thread = new Thread(job);
-                thread.setName("Hello");
+                thread.setName("DiscordWebhook");
                 thread.setDaemon(true);
                 return thread;
             });
@@ -53,10 +59,9 @@ public class CrashReporter {
                     .build();
 
             client.send(embed);
-            client.close();
 
             return id;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

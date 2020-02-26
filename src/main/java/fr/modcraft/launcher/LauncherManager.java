@@ -6,7 +6,6 @@ import fr.litarvan.openauth.AuthenticationException;
 import fr.litarvan.openauth.Authenticator;
 import fr.litarvan.openauth.model.AuthAgent;
 import fr.litarvan.openauth.model.response.AuthResponse;
-import fr.modcraft.launcher.Supdatemanager.SupdateManager;
 import fr.modcraft.launcher.alert.AlertBox;
 import fr.modcraft.launcher.options.OptionApp;
 import fr.modcraft.launcher.utils.CrashReporter;
@@ -49,15 +48,14 @@ public class LauncherManager {
         }
     }
 
-    public static void update(Label infoText, ProgressBar chargementBar){
+    public static void update(Label infoText, ProgressBar progressBar){
         Thread gameUpdateThread = new Thread(() -> {
-            GameUpdater updater = new GameUpdater("http://v1.modcraftmc.fr:100/gameupdater/", FL_DIR, chargementBar, infoText);
+            GameUpdater updater = new GameUpdater("http://v1.modcraftmc.fr:100/gameupdater/", FL_DIR, progressBar, infoText);
             updater.Suppresser(true);
             updater.updater().progressProperty().addListener((observable, oldValue, newValue) -> {
                 int number = (int) (newValue.doubleValue() * 100);
                 infoText.setText("Téléchargement de Modcraft " + number + "%");
             });
-
             updater.getTask().setOnSucceeded(event -> {
                 infoText.setText("Lancement du jeu");
                 Thread gameStarter = new Thread(){
@@ -78,6 +76,7 @@ public class LauncherManager {
             });
             updater.start();
         });
+
         gameUpdateThread.start();
         gameUpdateThread.interrupt();
     }
@@ -96,7 +95,7 @@ public class LauncherManager {
         } catch (InterruptedException | LaunchException e) {
             e.printStackTrace();
         } finally {
-            if (p.exitValue() == 1 ) {
+            if (p.exitValue() == 1) {
                 CrashReporter.generate();
             }
             System.exit(0);
