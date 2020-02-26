@@ -51,7 +51,7 @@ public class ModcraftLauncher extends Application implements Initializable {
     private String defaultText = "Premium Mode: ";
     private boolean premiumMode = true;
     private static boolean savePassword = false;
-    private static String serverName = "modcraft"; //Nom du server/launcher
+    private static String serverName = "Btest"; //Nom du server/launcher
     private static int defaultRamAmout;
     public static final int BLUR_AMOUNT = 20;
     public static final int FADING_TIME = 250; //En millisecondes
@@ -88,7 +88,7 @@ public class ModcraftLauncher extends Application implements Initializable {
 
     public static final GameVersion FL_VERSION = new GameVersion("1.12.2", GameType.V1_8_HIGHER);
     public static final GameInfos FL_INFOS = new GameInfos(serverName, FL_VERSION, new GameTweak[] {GameTweak.FORGE});
-    public static final File FL_DIR = GameDirGenerator.createGameDir("modcraft");
+    public static final File FL_DIR = GameDirGenerator.createGameDir("Btest");
 
     public static boolean maintenance = false;
 
@@ -117,7 +117,7 @@ public class ModcraftLauncher extends Application implements Initializable {
             Object obj = parser.parse(inputStreamReader);
             Jobject = (JSONObject) obj;
             maintenance = (boolean)Jobject.get("maintenance");
-            return maintenance;
+            return false;  //A MODIFIER APRES URGENT
         } catch (ParseException | IOException e) {
             return true;
         }

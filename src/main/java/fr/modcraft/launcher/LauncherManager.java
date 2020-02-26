@@ -17,6 +17,7 @@ import fr.theshark34.openlauncherlib.minecraft.*;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import ma.forix.gameupdater.GameUpdater;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +32,6 @@ public class LauncherManager {
     public static GameInfos FL_INFOS;
     public static File FL_DIR;
     private static AuthInfos authInfos;
-
 
     public LauncherManager(GameVersion gameVersion, GameInfos gameInfos, File gameDir){
         FL_VERSION = gameVersion;
@@ -49,49 +49,36 @@ public class LauncherManager {
         }
     }
 
-
     public static void update(Label infoText, ProgressBar chargementBar){
-        Thread updateThread = new Thread(() -> {
-            try {
-                SupdateManager supdateManager = new SupdateManager("http://149.202.65.157:100/", FL_DIR, chargementBar, infoText);
-                supdateManager.setDefaultText("Téléchargement des fichiers");
+        Thread gameUpdateThread = new Thread(() -> {
+            GameUpdater updater = new GameUpdater("http://v1.modcraftmc.fr:100/gameupdater/", FL_DIR, chargementBar, infoText);
+            updater.updater().progressProperty().addListener((observable, oldValue, newValue) -> {
+                int number = (int) (newValue.doubleValue() * 100);
+                infoText.setText("Téléchargement de Modcraft " + number + "%");
+            });
 
-                supdateManager.supdate().progressProperty().addListener((observable, oldValue, newValue) -> {
-                    int number = (int) (newValue.doubleValue() * 100);
-                    infoText.setText("Téléchargement des fichiers " + number + "%");
-
-                });
-
-                supdateManager.getTask().setOnSucceeded(event ->
-                {
-                    infoText.setText("Lancement du jeu");
-
-                    Thread starter = new Thread(){
-                        @Override
-                        public void run() {
-                            super.run();
-                            try {
-                                LauncherManager.launch();
-                            } catch (LaunchException e) {
-                                e.printStackTrace();
-                                String id = CrashReporter.generate();
-                                Transitions.blurAnimation(ModcraftLauncher.BLUR_AMOUNT, ModcraftLauncher.FADING_TIME, ModcraftLauncher.getRoot());
-                                Platform.runLater(() -> AlertBox.display("Erreur", "Erreur lors du lancement du jeu. \n ID du crash report: "+id));
-                            }
+            updater.getTask().setOnSucceeded(event -> {
+                infoText.setText("Lancement du jeu");
+                Thread gameStarter = new Thread(){
+                    @Override
+                    public void run() {
+                        super.run();
+                        try {
+                            LauncherManager.launch();
+                        } catch (LaunchException e) {
+                            e.printStackTrace();
+                            String id = CrashReporter.generate();
+                            Transitions.blurAnimation(ModcraftLauncher.BLUR_AMOUNT, ModcraftLauncher.FADING_TIME, ModcraftLauncher.getRoot());
+                            Platform.runLater(() -> AlertBox.display("Erreur", "Erreur lors du lancement du jeu. \n ID du crash report: "+id));
                         }
-                    };
-                    starter.start();
-                });
-                supdateManager.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-                Transitions.blurAnimation(ModcraftLauncher.BLUR_AMOUNT, ModcraftLauncher.FADING_TIME, ModcraftLauncher.getRoot());
-                Platform.runLater(() -> AlertBox.display("Erreur", "Mise à jour du jeu impossible"));
-                Platform.runLater(() -> infoText.setText("Bienvenue sur Modcraft !"));
-            }
+                    }
+                };
+                gameStarter.start();
+            });
+            updater.start();
         });
-        updateThread.start();
-        updateThread.interrupt();
+        gameUpdateThread.start();
+        gameUpdateThread.interrupt();
     }
 
     public static void launch() throws LaunchException {
@@ -113,6 +100,5 @@ public class LauncherManager {
             }
             System.exit(0);
         }
-
     }
 }

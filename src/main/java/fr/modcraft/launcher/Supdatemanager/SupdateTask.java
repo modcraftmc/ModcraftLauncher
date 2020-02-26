@@ -23,7 +23,6 @@ public class SupdateTask extends Task<Void> {
         this.url = url;
         this.file = file;
         this.supdateManager = supdateManager;
-
     }
 
 
