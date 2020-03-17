@@ -207,7 +207,6 @@ public class ModcraftLauncher extends Application implements Initializable {
         if (!isUpdating) {
             if (!(usernameField.getText().replaceAll(" ", "").equals("") || passwordField.getText().replaceAll(" ", "").equals(""))) {
                 SaveLauncherInfos.saveLauncherInfos(usernameField.getText(), passwordField.getText());
-                infoText.setText("Analyse des fichiers du jeu en cours...");
 
                 String ram = OptionApp.getRamArguments()[0];
                 if (ram.equals("-Xmx" + 1 + "G")
@@ -217,7 +216,7 @@ public class ModcraftLauncher extends Application implements Initializable {
                 ) {
 
                     Transitions.blurAnimation(BLUR_AMOUNT, FADING_TIME, root);
-                    AlertBox.display("Erreur", "vous n'avez pas alloué assez de ram au jeu ! ram recommandée : 6Gb");
+                    AlertBox.display("Erreur", "Vous n'avez pas alloué assez de ram au jeu ! Ram recommandée : 6Gb");
                     return;
                 }
                 Thread t = new Thread() {
@@ -225,11 +224,13 @@ public class ModcraftLauncher extends Application implements Initializable {
                     public void run() {
                         super.run();
                         try {
+                            Platform.runLater(() -> infoText.setText("Authentification en cours..."));
                             LauncherManager.auth(usernameField.getText(), passwordField.getText(), premiumMode);
                             new LauncherManager(FL_VERSION, FL_INFOS, FL_DIR);
                             isUpdating = true;
                             usernameField.setDisable(true);
                             passwordField.setDisable(true);
+                            Platform.runLater(() -> infoText.setText("Analyse des fichiers du jeu en cours..."));
                             LauncherManager.update(infoText, chargementBar);
                         } catch (AuthenticationException e) {
                             Transitions.blurAnimation(BLUR_AMOUNT, FADING_TIME, root);
