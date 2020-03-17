@@ -51,7 +51,7 @@ public class LauncherManager {
 
     public static void update(Label infoText, ProgressBar chargementBar){
         Thread gameUpdateThread = new Thread(() -> {
-            GameUpdater updater = new GameUpdater("http://v1.modcraftmc.fr:100/gameupdater/", FL_DIR, chargementBar, infoText);
+            GameUpdater updater = new GameUpdater("http://v1.modcraftmc.fr:100/gameupdatertester/", FL_DIR, chargementBar, infoText);
             updater.Suppresser(true);
             updater.updater().progressProperty().addListener((observable, oldValue, newValue) -> {
                 int number = (int) (newValue.doubleValue() * 100);
