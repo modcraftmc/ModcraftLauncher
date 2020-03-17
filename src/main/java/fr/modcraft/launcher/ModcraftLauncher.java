@@ -27,8 +27,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import net.wytrem.wylog.BasicLogger;
-import net.wytrem.wylog.LoggerFactory;
+import net.wytrem.logging.Logger;
+import net.wytrem.logging.LoggerFactory;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -44,7 +44,7 @@ import static javafx.scene.input.MouseEvent.MOUSE_PRESSED;
 
 public class ModcraftLauncher extends Application implements Initializable {
 
-    private static BasicLogger logger = LoggerFactory.getLogger("ModcraftMC");
+    private static final Logger logger = LoggerFactory.getLogger("ModcraftMC");
 
     private static Stage window;
     private static Scene premiumContent;
@@ -124,7 +124,6 @@ public class ModcraftLauncher extends Application implements Initializable {
     }
 
     public static void main(String[] args) {
-
         try {
             logger.info("Starting modcraft launcher");
             launch(args);
@@ -490,7 +489,7 @@ public class ModcraftLauncher extends Application implements Initializable {
             }
     }
 
-    public static BasicLogger getLogger() {
+    public static Logger getLogger() {
         return logger;
     }
 }
