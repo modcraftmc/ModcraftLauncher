@@ -6,7 +6,6 @@ import fr.litarvan.openauth.AuthenticationException;
 import fr.litarvan.openauth.Authenticator;
 import fr.litarvan.openauth.model.AuthAgent;
 import fr.litarvan.openauth.model.response.AuthResponse;
-import fr.modcraft.launcher.Supdatemanager.SupdateManager;
 import fr.modcraft.launcher.alert.AlertBox;
 import fr.modcraft.launcher.options.OptionApp;
 import fr.modcraft.launcher.utils.CrashReporter;
