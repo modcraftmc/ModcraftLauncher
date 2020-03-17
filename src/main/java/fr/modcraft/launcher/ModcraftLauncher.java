@@ -455,38 +455,35 @@ public class ModcraftLauncher extends Application implements Initializable {
     private double sx = 0, sy = 0;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        infoText.setText("Bienvenue sur ModcraftMC !");
+        if (ReadLauncherInfos.getUsername() != null) {
+            usernameField.setText(ReadLauncherInfos.getUsername());
+        }
 
-            if (!maintenance) {
-                infoText.setText("Bienvenue sur ModcraftMC !");
-                if (ReadLauncherInfos.getUsername() != null) {
-                    usernameField.setText(ReadLauncherInfos.getUsername());
-                }
+        if (ReadLauncherInfos.getPassword() != null) {
+            passwordField.setText(ReadLauncherInfos.getPassword());
+        }
 
-                if (ReadLauncherInfos.getPassword() != null) {
-                    passwordField.setText(ReadLauncherInfos.getPassword());
-                }
-
-                windowDrag.addEventFilter(MOUSE_PRESSED, e -> {
-                    sx = e.getScreenX() - window.getX();
-                    sy = e.getScreenY() - window.getY();
-                });
-                windowDrag.addEventFilter(MOUSE_DRAGGED, e -> {
-                    window.setX(e.getScreenX() - sx);
-                    window.setY(e.getScreenY() - sy);
-                });
+        windowDrag.addEventFilter(MOUSE_PRESSED, e -> {
+            sx = e.getScreenX() - window.getX();
+            sy = e.getScreenY() - window.getY();
+        });
+        windowDrag.addEventFilter(MOUSE_DRAGGED, e -> {
+            window.setX(e.getScreenX() - sx);
+            window.setY(e.getScreenY() - sy);
+        });
 
 
-                chargementBar.setStyle("-fx-accent: orange;");
+        chargementBar.setStyle("-fx-accent: orange;");
 
-                SaveLauncherInfos.setSavePassword(ReadLauncherInfos.getSavePassword());
-                SaveLauncherInfos.setPremiumMode(ReadLauncherInfos.getPremiumMode());
+        SaveLauncherInfos.setSavePassword(ReadLauncherInfos.getSavePassword());
+        SaveLauncherInfos.setPremiumMode(ReadLauncherInfos.getPremiumMode());
 
-                premiumMode = ReadLauncherInfos.getPremiumMode();
-                if (premiumMode)
-                    baseText.setText(defaultText + "Activé");
-                else
-                    baseText.setText(defaultText + "Désactivé");
-            }
+        premiumMode = ReadLauncherInfos.getPremiumMode();
+        if (premiumMode)
+            baseText.setText(defaultText + "Activé");
+        else
+            baseText.setText(defaultText + "Désactivé");
     }
 
     public static Logger getLogger() {
