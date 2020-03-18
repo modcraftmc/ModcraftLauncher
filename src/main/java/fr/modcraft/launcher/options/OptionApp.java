@@ -99,7 +99,9 @@ public class OptionApp implements Initializable {
     public static String[] getRamArguments() {
         if (maxRam == 0)
             maxRam = ReadLauncherInfos.getRAM();
-        String[] ramArgs = new String[]{"-Xmx" + maxRam + "G"};
+        String args = "-Xmx" + maxRam + "G -Xms256M -XX:PermSize=256m -Dminecraft.applet.TargetDirectory=\""+ModcraftLauncher.FL_DIR.toString()+"\" -Dfml.ignorePatchDiscrepancies=true -Dfml.ignoreInvalidMinecraftCertificates=true -Duser.language=en -Duser.country=US";
+        String[] ramArgs = args.split(" ");
+        //String[] ramArgs = new String[]{"-Xmx" + maxRam + "G"};
         return ramArgs;
     }
 
