@@ -212,7 +212,6 @@ public class ModcraftLauncher extends Application implements Initializable {
                 if (ram.equals("-Xmx" + 1 + "G")
                         || ram.equals("-Xmx" + 2 + "G")
                         || ram.equals("-Xmx" + 3 + "G")
-                        || ram.equals("-Xmx" + 4 + "G")
                 ) {
 
                     Transitions.blurAnimation(BLUR_AMOUNT, FADING_TIME, root);
