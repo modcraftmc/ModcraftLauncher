@@ -70,7 +70,7 @@ public class LauncherManager {
                             String id = CrashReporter.generate();
                             Transitions.blurAnimation(ModcraftLauncher.BLUR_AMOUNT, ModcraftLauncher.FADING_TIME, ModcraftLauncher.getRoot());
                             Platform.runLater(() -> AlertBox.display("Erreur", "Erreur lors du lancement du jeu. \n ID du crash report: "+id));
-                        }
+                    }
                     }
                 };
                 gameStarter.start();
@@ -95,7 +95,7 @@ public class LauncherManager {
         } catch (InterruptedException | LaunchException e) {
             e.printStackTrace();
         } finally {
-            if (p.exitValue() == 1 ) {
+            if (p != null && p.exitValue() == 1 ) {
                 CrashReporter.generate();
             }
             System.exit(0);
